@@ -26,12 +26,6 @@
 </template>
 <script>
     export default {
-        props: {
-            products: {
-                type: Array,
-                required: true
-            }
-        },
         data() {
             return {
                 name: "",
@@ -41,16 +35,14 @@
         },
         methods: {
             addNewProduct() {
-                let uniqueId = 0;
                 if (this.name == "" || this.price == "" || this.url == "") {
                     this.$toasted.error('Please fill blank field', {
                         position: 'top-right',
                         duration: 900
                     });
                 } else {
-                    uniqueId = this.products.length + 1;
-
-                    this.products.push({
+                    let uniqueId = this.$store.state.module1.products.length + 1;
+                    this.$store.dispatch('addToNew', {
                         id: uniqueId,
                         name: this.name,
                         price: this.price,
@@ -58,8 +50,6 @@
                         isEdit: false,
                         qty: 1
                     });
-
-                    this.$emit("inputProduct", this.products);
 
                     this.$toasted.success('Product Inserted Successfully', {
                         position: 'top-right',

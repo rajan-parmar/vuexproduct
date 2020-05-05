@@ -6,9 +6,9 @@
         </div>
 
         <div class="row mr-3 mt-5 ml-3">
-            <ProductForm @inputProduct="inputProducts" :products="products"/>
-            <ProductTable @cartProduct="updateCarts" :addToCarts="addToCarts" :products="products" @remove-product="removeProductUpdate" />
-            <ProductCarts :addToCarts="addToCarts" />
+            <ProductForm/>
+            <ProductTable/>
+            <ProductCarts/>
         </div>
     </div>
   </div>
@@ -25,8 +25,6 @@
         },
         data() {
             return {
-                products: [],
-                addToCarts: []
             }
         },
         methods: {
