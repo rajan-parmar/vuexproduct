@@ -83,6 +83,15 @@
                         position: 'top-right',
                         duration: 900
                     });
+                } else {
+                    itemInCart[0].qty += product.qty;
+
+                    this.$store.dispatch('cartQuantityPlus', itemInCart[0].qty);
+
+                    this.$toasted.success('Item Updated to the cart successfully', {
+                        position: 'top-right',
+                        duration: 900
+                    });
                 }
             },
             updateProduct(productId, product) {
