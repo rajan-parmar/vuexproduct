@@ -12,7 +12,9 @@ const actions = {
     },
 };
 
-const getters = {}
+const getters = {
+    allProducts: state => state.products
+}
 
 export default {
     state,

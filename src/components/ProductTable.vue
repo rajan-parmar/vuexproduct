@@ -13,11 +13,11 @@
             </thead>
 
             <tbody>
-                <tr v-if="!products.length">
+                <tr v-if="!this.$store.state.module1.products.length">
                     <td colspan="5" class="text-center">No Records</td>
                 </tr>
 
-                <tr v-for="(product, index) in products" :key="product.id">
+                <tr v-for="(product, index) in allProducts" :key="product.id">
                     <td>{{ product.id }}</td>
                     <td>
                         <input v-model="product.name"
@@ -34,7 +34,7 @@
                             class="form-control"
                             @keyup.enter=" product.isEdit = false; updateProduct(product.id, product);"
                         />
-                        <label v-else @click="product.isEdit = true">${{ product.price }}</label>
+                        <label v-else @click="product.isEdit = true">{{ product.price | currency }}</label>
                     </td>
 
                     <td>
@@ -61,63 +61,14 @@
     </div>
 </template>
 <script>
+    import { mapGetters } from 'vuex';
     export default {
-        props: {
-            products: {
-                type: Array,
-                required: true
-            },
-            addToCarts: {
-                type: Array,
-                required: true
+        name: "products",
+        filters: {
+            currency:function(value) {
+                return '$' + parseFloat(value).toFixed(2);
             }
         },
-        data() {
-            return {
-            };
-        },
-        methods: {
-            addToCart(product, index) {
-                let itemInCart = this.addToCarts.filter(item => item.id === product.id);
-
-                let isItemInCart = itemInCart.length > 0;
-
-                if (isItemInCart === false) {
-                    this.addToCarts.push(Object.assign({}, product));
-
-                    this.$emit("cartProduct", product.qty, index);
-
-                    this.$toasted.success('Item Added to the cart successfully', {
-                        position: 'top-right',
-                        duration: 900
-                    });
-                } else {
-                    itemInCart[0].qty += product.qty;
-
-                    this.$emit("cartProduct", itemInCart[0].qty, index);
-
-                    this.$toasted.success('Item Added to the cart successfully', {
-                        position: 'top-right',
-                        duration: 900
-                    });
-                }
-            },
-            updateProduct(productId, product) {
-                let productInCart = this.addToCarts.filter(item => item.id === productId);
-
-                if (this.addToCarts.length > 0) {
-                    productInCart[0].name = product.name;
-                    productInCart[0].price = product.price;
-                    productInCart[0].url = product.url;
-                }
-                this.$toasted.success('Product Updated Successfully', {
-                    position: 'top-right',
-                    duration: 900
-                });
-            },
-            removeProduct(productId) {
-                this.$emit("remove-product", productId);
-            }
-        }
+        computed: mapGetters(["allProducts"]),
     };
 </script>
