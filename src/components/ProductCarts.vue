@@ -2,7 +2,7 @@
     <div class="col-lg-5 cart-section">
         <h3 class="font-weight-bold">Cart Details:</h3>
 
-        <p v-if="!this.$store.state.module2.addToCarts.length" class="text-secondary">No cart item found.</p>
+        <p v-if="!allCarts.length" class="text-secondary">No cart item found.</p>
 
         <span v-for="(addToCart, index) in allCarts" class="shadow-lg" :key="addToCart.id">
             <div class="row mb-3">

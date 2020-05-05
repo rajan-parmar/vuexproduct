@@ -42,7 +42,7 @@
                     });
                 } else {
                     let uniqueId = this.$store.state.module1.products.length + 1;
-                    this.$store.dispatch('addToNew', {
+                    this.$store.commit('addToNew', {
                         id: uniqueId,
                         name: this.name,
                         price: this.price,

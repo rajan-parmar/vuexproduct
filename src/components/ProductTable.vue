@@ -78,7 +78,7 @@
                 let isItemInCart = itemInCart.length > 0;
 
                 if (isItemInCart === false) {
-                    this.$store.dispatch('addToCart', product);
+                    this.$store.commit('addToCart', product);
 
                     this.$toasted.success('Item Added to the cart successfully', {
                         position: 'top-right',
@@ -87,7 +87,7 @@
                 } else {
                     itemInCart[0].qty += product.qty;
 
-                    this.$store.dispatch('cartQuantityPlus', itemInCart[0].qty);
+                    this.$store.commit('cartQuantityPlus', itemInCart[0].qty);
 
                     this.$toasted.success('Item Updated to the cart successfully', {
                         position: 'top-right',
@@ -114,7 +114,7 @@
                 });
             },
             removeProduct(productId) {
-                this.$store.dispatch('removeProduct', productId);
+                this.$store.commit('removeProduct', productId);
             }
         }
     };
