@@ -70,5 +70,21 @@
             }
         },
         computed: mapGetters(["allProducts"]),
+        methods: {
+            addToCart(product) {
+                let itemInCart = this.$store.state.module2.addToCarts.filter(item => item.id === product.id);
+
+                let isItemInCart = itemInCart.length > 0;
+
+                if (isItemInCart === false) {
+                    this.$store.dispatch('addToCart', product);
+
+                    this.$toasted.success('Item Added to the cart successfully', {
+                        position: 'top-right',
+                        duration: 900
+                    });
+                }
+            },
+        }
     };
 </script>
