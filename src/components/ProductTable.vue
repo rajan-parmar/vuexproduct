@@ -97,11 +97,16 @@
             updateProduct(productId, product) {
                 let productInCart = this.$store.state.module2.addToCarts.filter(item => item.id === productId);
 
+                if (productInCart.length === 0) {
+                    return;
+                }
+
                 if (this.$store.state.module2.addToCarts.length > 0) {
                     productInCart[0].name = product.name;
                     productInCart[0].price = product.price;
                     productInCart[0].url = product.url;
                 }
+
                 this.$toasted.success('Product Updated Successfully', {
                     position: 'top-right',
                     duration: 900
